@@ -45,7 +45,8 @@ function useTimer(initialSeconds = 60) {
         startTimer,
         pauseTimer,
         resetTimer,
-        setSeconds
+        setSeconds,
+        initialSeconds
     };
 }
 
