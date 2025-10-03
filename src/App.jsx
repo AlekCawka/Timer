@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import useTimer from './hooks/useTimer';
 import ProgressBar from './components/ProgressBar';
+import TimeSetter from './components/TimeSetter';
+import Controls from './components/Controls';
 
 function App() {
     const [inputValue, setInputValue] = useState(60);
@@ -14,7 +16,7 @@ function App() {
         <div>
             <h1>{seconds}</h1>
 
-        <ProgressBar current={seconds} total={60} />
+            <ProgressBar current={seconds} total={inputValue} />
 
             <div>
                 <input
@@ -25,16 +27,28 @@ function App() {
                 <button onClick={handleSetTime}>Установить время</button>
             </div>
 
-            <div>
-                <button onClick={startTimer} disabled={isRunning || seconds === 0}>
-                    {seconds === inputValue ? 'Старт' : 'Продолжить'}
-                </button>
-                <button onClick={pauseTimer} disabled={!isRunning}>Пауза</button>
-                <button onClick={() => resetTimer()}>Сбросить</button>
-            </div>
+            <Controls
+                start={startTimer}
+                pause={pauseTimer}
+                reset={() => resetTimer(inputValue || initialSeconds)}
+                isRunning={isRunning}
+                seconds={seconds}
+                total={inputValue}
+            />
         </div>
     );
 }
 
 export default App;
 
+
+
+//  return (
+//     <div className="app-container">
+//       <h1>React Timer</h1>
+//       <Timer seconds={secondsLeft} />
+//       <ProgressBar secondsLeft={secondsLeft} totalSeconds={initialSeconds} />
+//       <Controls start={start} pause={pause} reset={reset} isRunning={isRunning} />
+//       <TimeSetter setSecondsLeft={setSecondsLeft} reset={reset} />
+//     </div>
+//   );
