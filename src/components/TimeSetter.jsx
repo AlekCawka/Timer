@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 
-function TimeSetter({ setSecondsLeft, reset }) {
+function TimeSetter({ onSetTime }) {
     const [input, setInput] = useState("");
 
     const handleSet = () => {
         const seconds = parseInt(input, 10);
         if (!isNaN(seconds) && seconds > 0) {
-            setSecondsLeft(seconds);
-            reset();
+            onSetTime(seconds); 
+            setInput("");
         }
-        setInput("");
     };
 
     return (
@@ -20,9 +19,9 @@ function TimeSetter({ setSecondsLeft, reset }) {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Seconds"
             />
-            <button onClick={handleSet}>Set</button>
+            <button onClick={handleSet}>Установить время</button>
         </div>
     );
-};
+}
 
 export default TimeSetter;

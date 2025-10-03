@@ -3,52 +3,36 @@ import useTimer from './hooks/useTimer';
 import ProgressBar from './components/ProgressBar';
 import TimeSetter from './components/TimeSetter';
 import Controls from './components/Controls';
+import './styles/App.css';
 
 function App() {
-    const [inputValue, setInputValue] = useState(60);
-    const { seconds, isRunning, startTimer, pauseTimer, resetTimer } = useTimer(inputValue);
+    const [timerSeconds, setTimerSeconds] = useState(60);
 
-    const handleSetTime = () => {
-        resetTimer(inputValue);
+    const { seconds, isRunning, startTimer, pauseTimer, resetTimer, initialSeconds } = useTimer(timerSeconds);
+
+    const handleSetTime = (newSeconds) => {
+        setTimerSeconds(newSeconds);
+        resetTimer(newSeconds);
     };
 
     return (
-        <div>
+        <div className="app-container">
             <h1>{seconds}</h1>
 
-            <ProgressBar current={seconds} total={inputValue} />
+            <ProgressBar current={seconds} total={timerSeconds} />
 
-            <div>
-                <input
-                    type="number"
-                    value={inputValue}
-                    onChange={e => setInputValue(Number(e.target.value))}
-                />
-                <button onClick={handleSetTime}>Установить время</button>
-            </div>
+            <TimeSetter onSetTime={handleSetTime} />
 
             <Controls
                 start={startTimer}
                 pause={pauseTimer}
-                reset={() => resetTimer(inputValue || initialSeconds)}
+                reset={() => resetTimer(timerSeconds || initialSeconds)}
                 isRunning={isRunning}
                 seconds={seconds}
-                total={inputValue}
+                total={timerSeconds}
             />
         </div>
     );
 }
 
 export default App;
-
-
-
-//  return (
-//     <div className="app-container">
-//       <h1>React Timer</h1>
-//       <Timer seconds={secondsLeft} />
-//       <ProgressBar secondsLeft={secondsLeft} totalSeconds={initialSeconds} />
-//       <Controls start={start} pause={pause} reset={reset} isRunning={isRunning} />
-//       <TimeSetter setSecondsLeft={setSecondsLeft} reset={reset} />
-//     </div>
-//   );
