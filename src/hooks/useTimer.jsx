@@ -5,7 +5,6 @@ function useTimer(initialSeconds = 60) {
     const [isRunning, setIsRunning] = useState(false);
     const timerIdRef = useRef(null);
 
-    // Старт таймера
     const startTimer = useCallback(() => {
         if (seconds <= 0 || isRunning) return;
 
@@ -23,13 +22,13 @@ function useTimer(initialSeconds = 60) {
         setIsRunning(true);
     }, [seconds, isRunning]);
 
-    // Пауза
+
     const pauseTimer = useCallback(() => {
         clearInterval(timerIdRef.current);
         setIsRunning(false);
     }, []);
 
-    // Сброс
+
     const resetTimer = useCallback((newSeconds = initialSeconds) => {
         clearInterval(timerIdRef.current);
         setIsRunning(false);
