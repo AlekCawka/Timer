@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useTimer from './hooks/useTimer';
+import ProgressBar from './components/ProgressBar';
 
 function App() {
     const [inputValue, setInputValue] = useState(60);
@@ -12,6 +13,8 @@ function App() {
     return (
         <div>
             <h1>{seconds}</h1>
+
+        <ProgressBar current={seconds} total={60} />
 
             <div>
                 <input
